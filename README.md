@@ -9,6 +9,7 @@ This repository presents a complete **2D TCAD (Technology Computer-Aided Design)
 
 The project covers structural generation, mesh refinement, physical transport model configuration, static DC forward/reverse IV analysis, high-voltage breakdown, junction capacitance dynamics ($C\text{--}V$), and transient reverse recovery ($t_{rr}$) switching performance.
 
+##  TCAD Tool Flow
 ```text
 ========================================================================================
                                  TCAD SIMULATION FLOW
