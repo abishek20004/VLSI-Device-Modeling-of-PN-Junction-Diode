@@ -69,8 +69,6 @@ The simulation is executed as a single connected pipeline, with each tool consum
 | 3 | **Sentaurus Device (sdevice)** | `n1_msh.tdr` + command deck | `n1_des.tdr`, `*.plt` | Solves Poisson + carrier continuity equations self-consistently for every bias/electrical test |
 | 4 | **Sentaurus Visual (svisual)** | `.tdr` / `.plt` datasets | Plots (`Results/*.png`) | Extracts and renders mesh, IV, CV, and transient curves |
 
-This flow is what produces every result discussed in Sections 6–10: the same mesh (`n1_msh.tdr`) is reused across five distinct electrical experiments (forward IV, breakdown IV, reverse C–V, transient turn-on, transient reverse recovery), each written to its own current/plot file via `NewCurrentFile` in the sdevice deck.
-
 ---
 
 ## 4. Device Structure
