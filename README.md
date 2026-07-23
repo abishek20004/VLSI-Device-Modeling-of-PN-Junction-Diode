@@ -69,6 +69,10 @@ The simulation is executed as a single connected pipeline, with each tool consum
 | 3 | **Sentaurus Device (sdevice)** | `n1_msh.tdr` + command deck | `n1_des.tdr`, `*.plt` | Solves Poisson + carrier continuity equations self-consistently for every bias/electrical test |
 | 4 | **Sentaurus Visual (svisual)** | `.tdr` / `.plt` datasets | Plots (`Results/*.png`) | Extracts and renders mesh, IV, CV, and transient curves |
 
+The three scripts below are the exact SDE, Sentaurus Device, and Sentaurus Visual sources used to generate every result in this repository — structure/mesh, DC I–V, breakdown, C–V, and transient reverse recovery.
+
+📄 **[SDE structure & mesh script](TCAD%20Scripts/sde.txt)** · **[sdevice command file](TCAD%20Scripts/sdevice.txt)** · **[svisual plot script](TCAD%20Scripts/svisual.txt)**
+
 ---
 
 ## 4. Device Structure
