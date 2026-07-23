@@ -1,0 +1,125 @@
+# ===================================================================
+# STEP 2: Sentaurus Device Command File (Complete Characterization)
+# ===================================================================
+
+File {
+  Grid    = "n1_msh.tdr"
+  Output  = "n1_des.tdr"
+  Plot    = "n1_des.plt"
+  Current = "n1_des.plt"
+  Param   = "models.par"
+}
+
+Electrode {
+  { Name="Anode"   Voltage=0.0 }
+  { Name="Cathode" Voltage=0.0 }
+}
+
+Thermode {
+  { Name="Anode"   Temperature=300 }
+  { Name="Cathode" Temperature=300 }
+}
+
+Physics {
+  Temperature = 300
+  Mobility( DopingDependence HighFieldSaturation Enormal )
+  Recombination( SRH(DopingDependence) Auger Avalanche(Lackner) )
+  EffectiveIntrinsicDensity( OldSlotboom )
+  Thermodynamic
+}
+
+Plot {
+  eDensity hDensity SpaceCharge
+  eCurrent hCurrent CurrentPotential
+  ElectricField ElectrostaticPotential
+  DonorConcentration AcceptorConcentration
+  eQuasiFermiPotential hQuasiFermiPotential
+  BandGap SRH Auger AvalancheGeneration
+  Temperature
+}
+
+Math {
+  Extrapolate
+  Derivatives
+  Iterations = 50
+  RelErrControl
+  Digits = 5
+  Method = blocked
+  NumberOfThreads = 1
+  BreakCriteria {
+    Current( Contact = "Cathode" AbsVal = 1.0e-4 )
+  }
+}
+
+Solve {
+  Poisson
+  Coupled { Poisson Electron Hole }
+  
+  Quasistationary(
+    InitialStep=0.01 Increment=1.5 MaxStep=0.1 MinStep=1e-5
+    Goal { Name="Anode" Voltage=0.05 }
+  ){
+    Coupled { Poisson Electron Hole Temperature }
+  }
+
+  NewCurrentFile="Forward_IV_"
+  Quasistationary(
+    InitialStep=1e-3 Increment=1.2 MaxStep=0.02 MinStep=1e-7
+    Goal { Name="Anode" Voltage=1.5 }
+  ){
+    Coupled { Poisson Electron Hole Temperature }
+  }
+
+  Quasistationary(
+    InitialStep=0.1 Increment=1.5 MaxStep=0.5 MinStep=1e-4
+    Goal { Name="Anode" Voltage=0.0 }
+  ){
+    Coupled { Poisson Electron Hole Temperature }
+  }
+
+  NewCurrentFile="Breakdown_IV_"
+  Quasistationary(
+    InitialStep=1e-2 Increment=1.3 MaxStep=2.0 MinStep=1e-6
+    Goal { Name="Cathode" Voltage=200.0 }
+  ){
+    Coupled { Poisson Electron Hole Temperature }
+  }
+
+  Quasistationary(
+    InitialStep=0.1 Increment=1.5 MaxStep=0.5 MinStep=1e-4
+    Goal { Name="Cathode" Voltage=0.0 }
+  ){
+    Coupled { Poisson Electron Hole }
+  }
+
+  NewCurrentFile="Reverse_CV_Sweep_"
+  Quasistationary(
+    InitialStep=0.05 Increment=1.2 MaxStep=0.2 MinStep=1e-4
+    Goal { Name="Cathode" Voltage=10.0 }
+  ){
+    Coupled { Poisson Electron Hole }
+  }
+
+  Quasistationary(
+    InitialStep=0.1 Increment=1.5 MaxStep=0.5 MinStep=1e-4
+    Goal { Name="Cathode" Voltage=0.0 }
+  ){
+    Coupled { Poisson Electron Hole }
+  }
+
+  NewCurrentFile="Transient_RR_Init_"
+  Quasistationary(
+    InitialStep=0.1 Increment=1.2 MaxStep=0.5 MinStep=1e-4
+    Goal { Name="Anode" Voltage=1.0 }
+  ){
+    Coupled { Poisson Electron Hole }
+  }
+
+  NewCurrentFile="Transient_RR_"
+  Transient(
+    InitialTime=0 FinalTime=100e-9
+    InitialStep=1e-12 MaxStep=1e-9 MinStep=1e-14
+  ){
+    Coupled { Poisson Electron Hole }
+  }
+}

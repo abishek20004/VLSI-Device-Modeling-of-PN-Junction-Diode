@@ -1,0 +1,45 @@
+# ===================================================================
+# Comprehensive Sentaurus Visual (svisual) Automation Script
+# Automatically plots Mesh Structure, IV Curves, CV Sweep, & Transients
+# ===================================================================
+
+# 1. Visualize the Device Structure and Mesh
+load_file "n1_msh.tdr"
+create_plot -type mesh -name "Device_Structure"
+
+# 2. Visualize Forward I-V Characteristics
+load_file "Forward_IV_n1_des.plt"
+create_plot -type xy -name "Forward_IV"
+add_curve -plot "Forward_IV" -dataset "Forward_IV_n1_des" -x "Anode OuterVoltage" -y "Anode TotalCurrent"
+set_axis_prop -plot "Forward_IV" -axis x -title "Anode Voltage (V)"
+set_axis_prop -plot "Forward_IV" -axis y -title "Anode Total Current (A)"
+# Optional: Uncomment the next line to view current on a logarithmic scale
+# set_axis_prop -plot "Forward_IV" -axis y -scale log
+
+# 3. Visualize Reverse Breakdown I-V Characteristics
+load_file "Breakdown_IV_n1_des.plt"
+create_plot -type xy -name "Breakdown_IV"
+add_curve -plot "Breakdown_IV" -dataset "Breakdown_IV_n1_des" -x "Cathode OuterVoltage" -y "Cathode TotalCurrent"
+set_axis_prop -plot "Breakdown_IV" -axis x -title "Cathode Voltage (V)"
+set_axis_prop -plot "Breakdown_IV" -axis y -title "Cathode Total Current (A)"
+
+# 4. Visualize Reverse C-V Sweep (Charge vs Voltage)
+load_file "Reverse_CV_Sweep_n1_des.plt"
+create_plot -type xy -name "Reverse_CV"
+add_curve -plot "Reverse_CV" -dataset "Reverse_CV_Sweep_n1_des" -x "Cathode OuterVoltage" -y "Cathode Charge"
+set_axis_prop -plot "Reverse_CV" -axis x -title "Cathode Voltage (V)"
+set_axis_prop -plot "Reverse_CV" -axis y -title "Cathode Charge (C)"
+
+# 5. Visualize Initial Transient Recovery Preparation
+load_file "Transient_RR_Init_n1_des.plt"
+create_plot -type xy -name "Transient_Init"
+add_curve -plot "Transient_Init" -dataset "Transient_RR_Init_n1_des" -x "time" -y "Anode TotalCurrent"
+set_axis_prop -plot "Transient_Init" -axis x -title "Time (s)"
+set_axis_prop -plot "Transient_Init" -axis y -title "Anode Total Current (A)"
+
+# 6. Visualize Final Transient Reverse Recovery Response
+load_file "Transient_RR_n1_des.plt"
+create_plot -type xy -name "Transient_Response"
+add_curve -plot "Transient_Response" -dataset "Transient_RR_n1_des" -x "time" -y "Anode TotalCurrent"
+set_axis_prop -plot "Transient_Response" -axis x -title "Time (s)"
+set_axis_prop -plot "Transient_Response" -axis y -title "Anode Total Current (A)"

@@ -1,0 +1,54 @@
+; ===================================================================
+; STEP 1: Sentaurus Structure Editor (SDE) - Advanced Diode
+; ===================================================================
+
+; --- Domain Definition (Width: 2 um, Depth: 10 um) ---
+(sdegeo:create-rectangle (position 0 0 0) (position 2 10 0) "Silicon" "R.Substrate")
+
+; --- Electrodes ---
+(sdegeo:define-contact-set "Anode"   4 (color:rgb 1 0 0) "##")
+(sdegeo:define-contact-set "Cathode" 4 (color:rgb 0 0 1) "##")
+
+; Assign 2D Contacts to Edges
+(sdegeo:define-2d-contact (find-edge-id (position 1 0 0)) "Anode")
+(sdegeo:define-2d-contact (find-edge-id (position 1 10 0)) "Cathode")
+
+; --- Refinement Windows for Doping Placement ---
+(sdedr:define-refeval-window "Win_AnodeDoping" "Rectangle" (position 0 0 0) (position 2 1.0 0))
+(sdedr:define-refeval-window "Win_CathodeDoping" "Rectangle" (position 0 9 0) (position 2 10 0))
+
+; --- Doping Profiles ---
+; 1. N-Type Substrate Background Doping (Nd = 2e15 cm^-3)
+(sdedr:define-constant-profile "Const.Substrate" "PhosphorusActiveConcentration" 2e15)
+(sdedr:define-constant-profile-region "Placement_Substrate" "Const.Substrate" "R.Substrate")
+
+; 2. P+ Anode Top Gaussian Implant (Na = 1e19 cm^-3, Junction ~ 0.8 um)
+(sdedr:define-gaussian-profile "Gauss.Anode" "BoronActiveConcentration"
+  "PeakPos" 0 "PeakVal" 1e19 "ValueAtDepth" 2e15 "Depth" 0.8 "Gauss" "Factor" 0.8)
+(sdedr:define-analytical-profile-placement "Placement_Anode"
+  "Gauss.Anode" "Win_AnodeDoping" "Positive" "NoReplace" "Eval")
+
+; 3. N+ Cathode Bottom Gaussian Implant (Nd = 1e20 cm^-3, Depth ~ 0.5 um from edge)
+(sdedr:define-gaussian-profile "Gauss.Cathode" "PhosphorusActiveConcentration"
+  "PeakPos" 10 "PeakVal" 1e20 "ValueAtDepth" 2e15 "Depth" 9.5 "Gauss" "Factor" 0.8)
+(sdedr:define-analytical-profile-placement "Placement_Cathode"
+  "Gauss.Cathode" "Win_CathodeDoping" "Negative" "NoReplace" "Eval")
+
+; --- Mesh Refinement Strategy ---
+; Refinement Windows
+(sdedr:define-refeval-window "Win_Global" "Rectangle" (position 0 0 0) (position 2 10 0))
+(sdedr:define-refeval-window "Win_Junction" "Rectangle" (position 0 0.3 0) (position 2 2.0 0))
+(sdedr:define-refeval-window "Win_CathodeMesh" "Rectangle" (position 0 8.5 0) (position 2 10.0 0))
+
+; Refinement Definitions & Placements
+(sdedr:define-refinement-size "RefDef_Global" 0.5 0.5 0 0.2 0.2 0)
+(sdedr:define-refinement-placement "Place_Global" "RefDef_Global" "Win_Global")
+
+(sdedr:define-refinement-size "RefDef_Junction" 0.05 0.005 0 0.01 0.001 0)
+(sdedr:define-refinement-placement "Place_Junction" "RefDef_Junction" "Win_Junction")
+
+(sdedr:define-refinement-size "RefDef_Cathode" 0.1 0.01 0 0.02 0.005 0)
+(sdedr:define-refinement-placement "Place_Cathode" "RefDef_Cathode" "Win_CathodeMesh")
+
+; Execute Mesh Generator to Output n1_msh.tdr
+(sde:build-mesh "snmesh" "" "n1_msh")
