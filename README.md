@@ -1,4 +1,4 @@
-# VLSI Device Modeling of an Advanced Silicon P⁺-N-N⁺ Power Diode
+# VLSI Device Modeling of an Advanced Silicon P⁺-N-N⁺ Diode
 ### A 2D TCAD Structural, Physical, and Electrical Characterization Study using Synopsys Sentaurus
 
 ---
