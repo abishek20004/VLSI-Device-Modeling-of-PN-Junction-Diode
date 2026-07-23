@@ -227,13 +227,10 @@ both of which are the key figures of merit for a power diode's switching-loss pe
 
 ---
 
-## 11. Author
 
-**Abishek** ([@abishek20004](https://github.com/abishek20004))
-
-This project was carried out as a 2D TCAD device-modeling study using **Synopsys Sentaurus TCAD** (Structure Editor, SNMESH, Sentaurus Device, and Sentaurus Visual), covering structural design, physics-model configuration, and full DC/transient electrical characterization of an advanced Silicon P⁺-N-N⁺ power diode.
-
-*Feel free to open an issue or pull request for questions, corrections, or extensions of this work.*
+## 👨‍💻 Abishek S
+- **Email:** xia2020.abisheks@gmail.com
+- **LinkedIn:** [linkedin.com/in/abishek-s-848564258](https://www.linkedin.com/in/abishek-s-848564258)
 
 ---
 
