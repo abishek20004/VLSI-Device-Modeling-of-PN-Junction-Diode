@@ -162,11 +162,21 @@ capturing the finite time required to sweep out (or inject) stored minority char
 
 ![Forward Bias](Results/Forward%20Bias.png)
 
-The curve shows the classic diode conduction signature: current is negligible while $V_{anode}$ is below the built-in potential region, then **rises exponentially** once the junction is forward-biased enough to overcome $V_{bi}$ — consistent with the ideal diode law:
+The plot overlays four separate current components extracted at the Anode contact:
+
+**Anode eCurrent** (electron current) — rises the most gradually of the four curves. Because the anode is the heavily doped P⁺ terminal, it is a minority-carrier (electron) collection point, so the electron contribution builds up slowly as forward bias increases.
+
+**Anode hCurrent** (hole current) — rises steeply and dominates the terminal current almost from the start. This is expected: at a P⁺N junction, hole injection from the heavily doped P⁺ anode into the lightly doped N drift region is the majority injection mechanism, so holes account for most of the current measured at the anode.
+
+**Anode DisplacementCurrent** — stays essentially flat at zero throughout. This is correct for a quasi-stationary DC sweep (Quasistationary in the sdevice deck): displacement current, J_disp = ε·dE/dt, only appears under time-varying fields, and only becomes significant in the transient solves (Sections 9–10).
+
+
+(Sections 9–10).
+Anode TotalCurrent — the sum of the above, and it tracks almost exactly with hCurrent since hole injection dominates. It shows negligible current below roughly 0.6–0.7 V, then rises exponentially once the junction is forward-biased enough to overcome the built-in potential $$V_{bi}$$ — consistent with the ideal diode law:
 
 $$I = I_s\left[\exp\left(\frac{qV}{nkT}\right)-1\right]$$
 
-Because Auger and SRH recombination and doping-dependent mobility are active, the exponential region eventually **rolls over into a more linear rise** at higher current: this roll-off is the ohmic voltage drop across the lightly doped, moderately resistive **N drift region**, and it is the same conductivity-modulated region that stores charge for reverse recovery. The Old Slotboom bandgap-narrowing model keeps this turn-on realistic despite the very heavily doped P⁺/N⁺ end regions.
+As the sweep continues toward 1.5 V, both hCurrent and TotalCurrent begin to **roll over into a more gradual, near-linear rise** at the highest currents: this roll-off is the ohmic voltage drop developing across the lightly doped, moderately resistive **N drift region**, and it is the same conductivity-modulated region that stores charge for reverse recovery. The Old Slotboom bandgap-narrowing model keeps this turn-on realistic despite the very heavily doped P⁺/N⁺ end regions.
 
 ---
 
