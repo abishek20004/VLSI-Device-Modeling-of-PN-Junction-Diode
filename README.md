@@ -7,7 +7,7 @@
 
 This repository presents a complete **2D TCAD (Technology Computer-Aided Design)** device modeling and numerical characterization suite for an advanced **Silicon P⁺-N-N⁺ Diode**, built entirely on the **Synopsys Sentaurus TCAD** toolchain.
 
-The project spans the full simulation lifecycle of a semiconductor power device: structural generation and doping placement in **Sentaurus Structure Editor (SDE)**, mesh discretization via **SNMESH**, physically rigorous numerical solving in **Sentaurus Device (sdevice)**, and result extraction/plotting in **Sentaurus Visual (svisual)**.
+The project spans the full simulation lifecycle of a semiconductor device: structural generation and doping placement in **Sentaurus Structure Editor (SDE)**, mesh discretization via **SNMESH**, physically rigorous numerical solving in **Sentaurus Device (sdevice)**, and result extraction/plotting in **Sentaurus Visual (svisual)**.
 
 Electrically, the device is characterized across four regimes:
 
