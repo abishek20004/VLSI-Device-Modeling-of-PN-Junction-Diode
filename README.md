@@ -171,8 +171,8 @@ The plot overlays four separate current components extracted at the Anode contac
 **Anode DisplacementCurrent** — stays essentially flat at zero throughout. This is correct for a quasi-stationary DC sweep (Quasistationary in the sdevice deck): displacement current, J_disp = ε·dE/dt, only appears under time-varying fields, and only becomes significant in the transient solves (Sections 9–10).
 
 
-(Sections 9–10).
-Anode TotalCurrent — the sum of the above, and it tracks almost exactly with hCurrent since hole injection dominates. It shows negligible current below roughly 0.6–0.7 V, then rises exponentially once the junction is forward-biased enough to overcome the built-in potential $$V_{bi}$$ — consistent with the ideal diode law:
+
+**Anode TotalCurrent** — the sum of the above, and it tracks almost exactly with hCurrent since hole injection dominates. It shows negligible current below roughly 0.6–0.7 V, then rises exponentially once the junction is forward-biased enough to overcome the built-in potential $$V_{bi}$$ — consistent with the ideal diode law:
 
 $$I = I_s\left[\exp\left(\frac{qV}{nkT}\right)-1\right]$$
 
