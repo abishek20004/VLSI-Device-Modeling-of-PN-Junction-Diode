@@ -32,7 +32,7 @@ Electrically, the device is characterized across four regimes:
 
 ## 2. The Advanced P⁺-N-N⁺ Diode — Device Concept and Governing Equations
 
-A conventional PN diode uses two uniformly doped regions. The **P⁺-N-N⁺ structure** modeled here is a **vertical diode architecture**: a heavily doped **P⁺ anode** and a heavily doped **N⁺ cathode** sandwich a lightly doped **N (drift/base) region**. This drift region is the defining feature of a power diode — it is designed to **support the reverse-bias electric field** and block high voltages, while the two heavily doped end regions guarantee low-resistance ohmic contact and efficient carrier injection.
+A conventional PN diode uses two uniformly doped regions. The **P⁺-N-N⁺ structure** modeled here is a **vertical diode architecture**: a heavily doped **P⁺ anode** and a heavily doped **N⁺ cathode** sandwich a lightly doped **N (drift/base) region**. This drift region is the defining feature of a diode — it is designed to **support the reverse-bias electric field** and block high voltages, while the two heavily doped end regions guarantee low-resistance ohmic contact and efficient carrier injection.
 
 **Built-in potential** of the P⁺N junction:
 
